@@ -1,5 +1,7 @@
 package factory;
 
+import org.jetbrains.annotations.NotNull;
+
 /*
  * This <saw> project in package <factory> created by : 
  * Name         : syafiq
@@ -7,7 +9,7 @@ package factory;
  * Email        : syafiq.rezpector@gmail.com
  * Github       : syafiqq
  */
-public abstract class ProfitContainer
+public abstract class ProfitContainer<A extends Alternative>
 {
-    public abstract void searchProfits(Alternative alternative);
+    public abstract void searchProfits(@NotNull A alternative);
 }
