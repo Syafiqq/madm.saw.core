@@ -1,6 +1,5 @@
 package factory;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,7 +29,7 @@ public class SAW
         if(alternatives.size() > 0)
         {
             this.profit = alternatives.get(0).adaptToProfit();
-            for(final Alternative alternative : this.alternatives)
+            for(@NotNull final Alternative alternative : this.alternatives)
             {
                 this.profit.searchProfits(alternative);
             }
@@ -46,7 +45,7 @@ public class SAW
     {
         if(alternatives.size() > 0)
         {
-            for(final Alternative alternative : this.alternatives)
+            for(@NotNull final Alternative alternative : this.alternatives)
             {
                 alternative.calculateNormalization(this.profit);
             }
@@ -62,7 +61,7 @@ public class SAW
     {
         if(alternatives.size() > 0)
         {
-            for(final Alternative alternative : this.alternatives)
+            for(@NotNull final Alternative alternative : this.alternatives)
             {
                 alternative.calculatePreferences(this.weight);
             }
@@ -76,7 +75,7 @@ public class SAW
 
     public void sort()
     {
-        Collections.sort(this.alternatives, Comparator.naturalOrder());
+        this.alternatives.sort(Comparator.naturalOrder());
     }
 
     public void process()
@@ -87,12 +86,14 @@ public class SAW
         this.sort();
     }
 
-    public Alternative getBestAlternative()
+    @Nullable public Alternative getBestAlternative()
     {
-        Alternative best = null;
+        @Nullable Alternative best = null;
         if(alternatives.size() > 0)
         {
-            best = alternatives.get(0);
+            @NotNull final Alternative first = this.alternatives.get(0);
+            @NotNull final Alternative last  = this.alternatives.get(this.alternatives.size() - 1);
+            best = first.compareTo(last) >= 0 ? first : last;
         }
         else
         {
@@ -102,32 +103,32 @@ public class SAW
         return best;
     }
 
-    public boolean addAlternative(Alternative t)
+    public boolean addAlternative(@NotNull Alternative t)
     {
         return alternatives.add(t);
     }
 
-    public List<Alternative> getAlternatives()
+    @NotNull public List<Alternative> getAlternatives()
     {
         return this.alternatives;
     }
 
-    public ProfitContainer getProfit()
+    @Nullable public ProfitContainer getProfit()
     {
         return this.profit;
     }
 
-    public void setProfit(ProfitContainer profit)
+    public void setProfit(@NotNull ProfitContainer profit)
     {
         this.profit = profit;
     }
 
-    public WeightContainer getWeight()
+    @Nullable public WeightContainer getWeight()
     {
         return this.weight;
     }
 
-    public void setWeight(WeightContainer weight)
+    public void setWeight(@NotNull WeightContainer weight)
     {
         this.weight = weight;
     }
