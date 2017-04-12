@@ -1,5 +1,7 @@
 package factory;
 
+import org.jetbrains.annotations.NotNull;
+
 /*
  * This <saw> project in package <factory> created by : 
  * Name         : syafiq
@@ -7,11 +9,11 @@ package factory;
  * Email        : syafiq.rezpector@gmail.com
  * Github       : syafiqq
  */
-public abstract class Criterion
+public abstract class Criterion<P extends Profit, W extends Weight>
 {
-    public abstract void searchProfit(Profit criterion);
+    public abstract void searchProfit(@NotNull P criterion);
 
-    public abstract void calculateNormalization(Profit criterion);
+    public abstract void calculateNormalization(@NotNull P criterion);
 
-    public abstract void calculateWeightedNormalization(Weight criterion);
+    public abstract void calculateWeightedNormalization(@NotNull W criterion);
 }
