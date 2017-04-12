@@ -1,7 +1,11 @@
 package factory;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /*
  * This <saw> project in package <factory> created by : 
@@ -12,9 +16,9 @@ import java.util.List;
  */
 public class SAW
 {
-    private List<Alternative> alternatives;
-    private ProfitContainer   profit;
-    private WeightContainer   weight;
+    private @NotNull  List<Alternative> alternatives;
+    private @Nullable ProfitContainer   profit;
+    private @Nullable WeightContainer   weight;
 
     public SAW()
     {
@@ -25,7 +29,7 @@ public class SAW
     {
         if(alternatives.size() > 0)
         {
-            this.profit = alternatives.get(0).copyToProfit();
+            this.profit = alternatives.get(0).adaptToProfit();
             for(final Alternative alternative : this.alternatives)
             {
                 this.profit.searchProfits(alternative);
@@ -38,14 +42,28 @@ public class SAW
         }
     }
 
-    public void process()
+    public void calculate()
     {
         if(alternatives.size() > 0)
         {
-            this.compile();
             for(final Alternative alternative : this.alternatives)
             {
                 alternative.calculateNormalization(this.profit);
+            }
+        }
+        else
+        {
+            System.err.println("At least one alternative exists");
+            System.exit(0);
+        }
+    }
+
+    public void ranking()
+    {
+        if(alternatives.size() > 0)
+        {
+            for(final Alternative alternative : this.alternatives)
+            {
                 alternative.calculatePreferences(this.weight);
             }
         }
@@ -56,14 +74,17 @@ public class SAW
         }
     }
 
-    public boolean add(Alternative t)
+    public void sort()
     {
-        return alternatives.add(t);
+        Collections.sort(this.alternatives, Comparator.naturalOrder());
     }
 
-    public void addWeight(WeightContainer weight)
+    public void process()
     {
-        this.weight = weight;
+        this.compile();
+        this.calculate();
+        this.ranking();
+        this.sort();
     }
 
     public Alternative getBestAlternative()
@@ -71,14 +92,7 @@ public class SAW
         Alternative best = null;
         if(alternatives.size() > 0)
         {
-            best = this.alternatives.get(0);
-            for(final Alternative alternative : this.alternatives)
-            {
-                if(alternative.betterThan(best))
-                {
-                    best = alternative;
-                }
-            }
+            best = alternatives.get(0);
         }
         else
         {
@@ -88,13 +102,33 @@ public class SAW
         return best;
     }
 
+    public boolean addAlternative(Alternative t)
+    {
+        return alternatives.add(t);
+    }
+
+    public List<Alternative> getAlternatives()
+    {
+        return this.alternatives;
+    }
+
     public ProfitContainer getProfit()
     {
-        return profit;
+        return this.profit;
+    }
+
+    public void setProfit(ProfitContainer profit)
+    {
+        this.profit = profit;
     }
 
     public WeightContainer getWeight()
     {
-        return weight;
+        return this.weight;
+    }
+
+    public void setWeight(WeightContainer weight)
+    {
+        this.weight = weight;
     }
 }
