@@ -1,6 +1,6 @@
 package factory;
 
-import factory.interfaces.AlternativeComparator;
+import org.jetbrains.annotations.NotNull;
 
 /*
  * This <saw> project in package <factory> created by : 
@@ -9,11 +9,11 @@ import factory.interfaces.AlternativeComparator;
  * Email        : syafiq.rezpector@gmail.com
  * Github       : syafiqq
  */
-public abstract class Alternative implements AlternativeComparator<Alternative>
+public abstract class Alternative<PC extends ProfitContainer, WC extends WeightContainer> implements Comparable<Alternative>
 {
-    public abstract void calculateNormalization(ProfitContainer alternative);
+    public abstract void calculateNormalization(@NotNull PC alternative);
 
-    public abstract void calculatePreferences(WeightContainer alternative);
+    public abstract void calculatePreferences(@NotNull WC alternative);
 
-    public abstract ProfitContainer copyToProfit();
+    public abstract PC adaptToProfit();
 }
