@@ -1,4 +1,4 @@
 rootProject.name = 'saw'
+include 'core'
 include 'case'
-findProject(':case')?.name = 'saw.case'
 
