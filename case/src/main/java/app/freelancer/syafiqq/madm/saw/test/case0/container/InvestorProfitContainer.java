@@ -1,5 +1,6 @@
 package app.freelancer.syafiqq.madm.saw.test.case0.container;
 
+import app.freelancer.syafiqq.madm.saw.core.factory.Alternative;
 import app.freelancer.syafiqq.madm.saw.core.factory.ProfitContainer;
 import app.freelancer.syafiqq.madm.saw.test.case0.alternative.Investor;
 import app.freelancer.syafiqq.madm.saw.test.case0.profit.ContinuousProfit;
@@ -13,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  * Email        : syafiq.rezpector@gmail.com
  * Github       : syafiqq
  */
-public class InvestorProfitContainer extends ProfitContainer<Investor>
+public class InvestorProfitContainer extends ProfitContainer
 {
     @NotNull private ContinuousProfit availability;
     @NotNull private ContinuousProfit cost;
@@ -30,13 +31,14 @@ public class InvestorProfitContainer extends ProfitContainer<Investor>
         this.productivity = productivity;
     }
 
-    @Override public void searchProfits(@NotNull Investor alternative)
+    @Override public void searchProfits(@NotNull Alternative alternative)
     {
-        alternative.getAvailability().searchProfit(this.availability);
-        alternative.getCost().searchProfit(this.cost);
-        alternative.getInvestment().searchProfit(this.investment);
-        alternative.getNeed().searchProfit(this.need);
-        alternative.getProductivity().searchProfit(this.productivity);
+        @NotNull final Investor _alternative = (Investor) alternative;
+        _alternative.getAvailability().searchProfit(this.availability);
+        _alternative.getCost().searchProfit(this.cost);
+        _alternative.getInvestment().searchProfit(this.investment);
+        _alternative.getNeed().searchProfit(this.need);
+        _alternative.getProductivity().searchProfit(this.productivity);
     }
 
     @NotNull public ContinuousProfit getAvailability()

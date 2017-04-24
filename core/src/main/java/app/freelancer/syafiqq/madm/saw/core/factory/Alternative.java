@@ -9,11 +9,11 @@ import org.jetbrains.annotations.NotNull;
  * Email        : syafiq.rezpector@gmail.com
  * Github       : syafiqq
  */
-public abstract class Alternative<PC extends ProfitContainer, WC extends WeightContainer> implements Comparable<Alternative>
+public abstract class Alternative implements Comparable<Alternative>
 {
-    public abstract void calculateNormalization(@NotNull PC alternative);
+    public abstract void calculateNormalization(@NotNull ProfitContainer alternative);
 
-    public abstract void calculatePreferences(@NotNull WC alternative);
+    public abstract void calculatePreferences(@NotNull WeightContainer alternative);
 
-    public abstract PC adaptToProfit();
+    public abstract ProfitContainer adaptToProfit();
 }
