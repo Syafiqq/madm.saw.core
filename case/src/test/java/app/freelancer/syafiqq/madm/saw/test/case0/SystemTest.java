@@ -32,10 +32,7 @@ public class SystemTest
 
         saw.setWeight(w);
 
-        saw.compile();
-        saw.calculate();
-        saw.ranking();
-        saw.sort();
+        saw.process();
 
         System.out.println(saw.getBestAlternative());
     }
