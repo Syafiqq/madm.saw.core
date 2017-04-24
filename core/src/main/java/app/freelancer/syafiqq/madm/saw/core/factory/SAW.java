@@ -26,6 +26,15 @@ public class SAW
 
     public void process()
     {
+        this.compile();
+        this.searchProfit();
+        this.calculate();
+        this.ranking();
+        this.sort();
+    }
+
+    private void compile()
+    {
         //===Compile===
         if(this.alternatives.size() <= 0)
         {
@@ -45,16 +54,28 @@ public class SAW
             System.err.println("Weight Container must be initialized");
             System.exit(0);
         }
+    }
 
+    private void searchProfit()
+    {
         //==Search Profit===
         this.alternatives.forEach(alternative -> this.profit.searchProfits(alternative));
+    }
 
+    private void calculate()
+    {
         //===Calculate===
         this.alternatives.forEach(alternative -> alternative.calculateNormalization(this.profit));
+    }
 
+    private void ranking()
+    {
         //===Ranking===
         this.alternatives.forEach(alternative -> alternative.calculatePreferences(this.weight));
+    }
 
+    private void sort()
+    {
         //===Sort===
         this.alternatives.sort(Comparator.naturalOrder());
     }
