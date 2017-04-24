@@ -1,5 +1,6 @@
 package app.freelancer.syafiqq.madm.saw.core.factory;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -59,25 +60,41 @@ public class SAW
     private void searchProfit()
     {
         //==Search Profit===
-        this.alternatives.forEach(alternative -> this.profit.searchProfits(alternative));
+        for(Alternative alternative : this.alternatives)
+        {
+            this.profit.searchProfits(alternative);
+        }
     }
 
     private void calculate()
     {
         //===Calculate===
-        this.alternatives.forEach(alternative -> alternative.calculateNormalization(this.profit));
+        for(Alternative alternative : this.alternatives)
+        {
+            alternative.calculateNormalization(this.profit);
+        }
     }
 
     private void ranking()
     {
         //===Ranking===
-        this.alternatives.forEach(alternative -> alternative.calculatePreferences(this.weight));
+        for(Alternative alternative : this.alternatives)
+        {
+            alternative.calculatePreferences(this.weight);
+        }
     }
 
     private void sort()
     {
         //===Sort===
-        this.alternatives.sort(Comparator.naturalOrder());
+        Collections.sort(this.alternatives, new Comparator<Alternative>()
+        {
+            @Override
+            public int compare(Alternative a1, Alternative a2)
+            {
+                return a1.compareTo(a2);
+            }
+        });
     }
 
     @Nullable public Alternative getBestAlternative()
