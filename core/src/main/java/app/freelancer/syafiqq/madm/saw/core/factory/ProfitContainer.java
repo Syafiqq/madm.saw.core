@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
  * Email        : syafiq.rezpector@gmail.com
  * Github       : syafiqq
  */
-public abstract class ProfitContainer<A extends Alternative>
+public abstract class ProfitContainer
 {
-    public abstract void searchProfits(@NotNull A alternative);
+    public abstract void searchProfits(@NotNull Alternative alternative);
 }

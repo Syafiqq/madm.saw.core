@@ -9,11 +9,11 @@ import org.jetbrains.annotations.NotNull;
  * Email        : syafiq.rezpector@gmail.com
  * Github       : syafiqq
  */
-public abstract class Criterion<P extends Profit, W extends Weight>
+public abstract class Criterion
 {
-    public abstract void searchProfit(@NotNull P criterion);
+    public abstract void searchProfit(@NotNull Profit criterion);
 
-    public abstract void calculateNormalization(@NotNull P criterion);
+    public abstract void calculateNormalization(@NotNull Profit criterion);
 
-    public abstract void calculateWeightedNormalization(@NotNull W criterion);
+    public abstract void calculateWeightedNormalization(@NotNull Weight criterion);
 }
