@@ -24,66 +24,39 @@ public class SAW
         this.alternatives = new LinkedList<>();
     }
 
-    public void compile()
-    {
-        if(alternatives.size() > 0)
-        {
-            this.profit = alternatives.get(0).adaptToProfit();
-            for(@NotNull final Alternative alternative : this.alternatives)
-            {
-                this.profit.searchProfits(alternative);
-            }
-        }
-        else
-        {
-            System.err.println("At least one alternative exists");
-            System.exit(0);
-        }
-    }
-
-    public void calculate()
-    {
-        if(alternatives.size() > 0)
-        {
-            for(@NotNull final Alternative alternative : this.alternatives)
-            {
-                alternative.calculateNormalization(this.profit);
-            }
-        }
-        else
-        {
-            System.err.println("At least one alternative exists");
-            System.exit(0);
-        }
-    }
-
-    public void ranking()
-    {
-        if(alternatives.size() > 0)
-        {
-            for(@NotNull final Alternative alternative : this.alternatives)
-            {
-                alternative.calculatePreferences(this.weight);
-            }
-        }
-        else
-        {
-            System.err.println("At least one alternative exists");
-            System.exit(0);
-        }
-    }
-
-    public void sort()
-    {
-        this.alternatives.sort(Comparator.naturalOrder());
-    }
-
     public void process()
     {
-        this.compile();
-        this.calculate();
-        this.ranking();
-        this.sort();
+        //===Compile===
+        if(this.alternatives.size() <= 0)
+        {
+            System.err.println("At least one alternative exists");
+            System.exit(0);
+        }
+
+        this.profit = alternatives.get(0).adaptToProfit();
+        if(this.profit == null)
+        {
+            System.err.println("Profit Container must be initialized");
+            System.exit(0);
+        }
+
+        if(this.weight == null)
+        {
+            System.err.println("Weight Container must be initialized");
+            System.exit(0);
+        }
+
+        //==Search Profit===
+        this.alternatives.forEach(alternative -> this.profit.searchProfits(alternative));
+
+        //===Calculate===
+        this.alternatives.forEach(alternative -> alternative.calculateNormalization(this.profit));
+
+        //===Ranking===
+        this.alternatives.forEach(alternative -> alternative.calculatePreferences(this.weight));
+
+        //===Sort===
+        this.alternatives.sort(Comparator.naturalOrder());
     }
 
     @Nullable public Alternative getBestAlternative()
@@ -131,5 +104,15 @@ public class SAW
     public void setWeight(@NotNull WeightContainer weight)
     {
         this.weight = weight;
+    }
+
+    @Override public String toString()
+    {
+        final StringBuilder sb = new StringBuilder("SAW{");
+        sb.append("alternatives=").append(alternatives);
+        sb.append(", profit=").append(profit);
+        sb.append(", weight=").append(weight);
+        sb.append('}');
+        return sb.toString();
     }
 }
