@@ -1,6 +1,8 @@
 package app.freelancer.syafiqq.madm.saw.test.case0.criterion;
 
 import app.freelancer.syafiqq.madm.saw.core.factory.Criterion;
+import app.freelancer.syafiqq.madm.saw.core.factory.Profit;
+import app.freelancer.syafiqq.madm.saw.core.factory.Weight;
 import app.freelancer.syafiqq.madm.saw.test.case0.profit.ContinuousProfit;
 import app.freelancer.syafiqq.madm.saw.test.case0.type.CriterionType;
 import app.freelancer.syafiqq.madm.saw.test.case0.weight.ContinuousWeight;
@@ -15,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
  * Email        : syafiq.rezpector@gmail.com
  * Github       : syafiqq
  */
-public class Cost extends Criterion<ContinuousProfit, ContinuousWeight>
+public class Cost extends Criterion
 {
     public static final CriterionType TYPE = CriterionType.COST;
 
@@ -27,43 +29,45 @@ public class Cost extends Criterion<ContinuousProfit, ContinuousWeight>
         this.setValue(value);
     }
 
-    @Override public void searchProfit(@NotNull ContinuousProfit criterion)
+    @Override public void searchProfit(@NotNull Profit criterion)
     {
+        @NotNull final ContinuousProfit _criterion = (ContinuousProfit) criterion;
         switch(Cost.TYPE)
         {
             case BENEFIT:
             {
-                criterion.setProfit(FastMath.max(criterion.getProfit(), this.getValue()));
+                _criterion.setProfit(FastMath.max(_criterion.getProfit(), this.getValue()));
             }
             break;
             case COST:
             {
-                criterion.setProfit(FastMath.min(criterion.getProfit(), this.getValue()));
+                _criterion.setProfit(FastMath.min(_criterion.getProfit(), this.getValue()));
             }
             break;
         }
     }
 
-    @Override public void calculateNormalization(@NotNull ContinuousProfit criterion)
+    @Override public void calculateNormalization(@NotNull Profit criterion)
     {
+        @NotNull final ContinuousProfit _criterion = (ContinuousProfit) criterion;
         switch(Cost.TYPE)
         {
             case BENEFIT:
             {
-                this.setNormalization(this.value / criterion.getProfit());
+                this.setNormalization(this.value / _criterion.getProfit());
             }
             break;
             case COST:
             {
-                this.setNormalization(criterion.getProfit() / this.value);
+                this.setNormalization(_criterion.getProfit() / this.value);
             }
             break;
         }
     }
 
-    @Override public void calculateWeightedNormalization(@NotNull ContinuousWeight criterion)
+    @Override public void calculateWeightedNormalization(@NotNull Weight _criterion)
     {
-        this.setNormalization(this.getNormalization() * criterion.getWeight());
+        this.setNormalization(this.getNormalization() * ((ContinuousWeight) _criterion).getWeight());
     }
 
     public int getValue()

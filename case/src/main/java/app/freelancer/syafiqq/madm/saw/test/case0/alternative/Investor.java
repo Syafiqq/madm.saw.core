@@ -1,7 +1,9 @@
 package app.freelancer.syafiqq.madm.saw.test.case0.alternative;
 
 import app.freelancer.syafiqq.madm.saw.core.factory.Alternative;
+import app.freelancer.syafiqq.madm.saw.core.factory.ProfitContainer;
 import app.freelancer.syafiqq.madm.saw.core.factory.Properties;
+import app.freelancer.syafiqq.madm.saw.core.factory.WeightContainer;
 import app.freelancer.syafiqq.madm.saw.test.case0.container.InvestorProfitContainer;
 import app.freelancer.syafiqq.madm.saw.test.case0.container.InvestorWeightContainer;
 import app.freelancer.syafiqq.madm.saw.test.case0.criterion.Availability;
@@ -20,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
  * Email        : syafiq.rezpector@gmail.com
  * Github       : syafiqq
  */
-public class Investor extends Alternative<InvestorProfitContainer, InvestorWeightContainer>
+public class Investor extends Alternative
 {
     @NotNull private Availability availability;
     @NotNull private Cost         cost;
@@ -40,22 +42,25 @@ public class Investor extends Alternative<InvestorProfitContainer, InvestorWeigh
         this.productivity = productivity;
     }
 
-    @Override public void calculateNormalization(@NotNull InvestorProfitContainer alternative)
+    @Override public void calculateNormalization(@NotNull ProfitContainer alternative)
     {
-        this.availability.calculateNormalization(alternative.getAvailability());
-        this.cost.calculateNormalization(alternative.getCost());
-        this.investment.calculateNormalization(alternative.getInvestment());
-        this.need.calculateNormalization(alternative.getNeed());
-        this.productivity.calculateNormalization(alternative.getProductivity());
+        @NotNull final InvestorProfitContainer _alternative = (InvestorProfitContainer) alternative;
+        this.availability.calculateNormalization(_alternative.getAvailability());
+        this.cost.calculateNormalization(_alternative.getCost());
+        this.investment.calculateNormalization(_alternative.getInvestment());
+        this.need.calculateNormalization(_alternative.getNeed());
+        this.productivity.calculateNormalization(_alternative.getProductivity());
     }
 
-    @Override public void calculatePreferences(@NotNull InvestorWeightContainer alternative)
+    @Override public void calculatePreferences(@NotNull WeightContainer alternative)
     {
-        this.availability.calculateWeightedNormalization(alternative.getAvailability());
-        this.cost.calculateWeightedNormalization(alternative.getCost());
-        this.investment.calculateWeightedNormalization(alternative.getInvestment());
-        this.need.calculateWeightedNormalization(alternative.getNeed());
-        this.productivity.calculateWeightedNormalization(alternative.getProductivity());
+        @NotNull final InvestorWeightContainer _alternative = (InvestorWeightContainer) alternative;
+
+        this.availability.calculateWeightedNormalization(_alternative.getAvailability());
+        this.cost.calculateWeightedNormalization(_alternative.getCost());
+        this.investment.calculateWeightedNormalization(_alternative.getInvestment());
+        this.need.calculateWeightedNormalization(_alternative.getNeed());
+        this.productivity.calculateWeightedNormalization(_alternative.getProductivity());
 
         this.total = 0;
         this.total += this.availability.getNormalization();
@@ -65,7 +70,7 @@ public class Investor extends Alternative<InvestorProfitContainer, InvestorWeigh
         this.total += this.productivity.getNormalization();
     }
 
-    @Override public InvestorProfitContainer adaptToProfit()
+    @Override public ProfitContainer adaptToProfit()
     {
         return new InvestorProfitContainer(
                 new ContinuousProfit(this.availability.getValue()),
