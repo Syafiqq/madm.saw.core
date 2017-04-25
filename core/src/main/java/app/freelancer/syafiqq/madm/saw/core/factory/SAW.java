@@ -36,7 +36,6 @@ public class SAW
 
     private void compile()
     {
-        //===Compile===
         if(this.alternatives.size() <= 0)
         {
             System.err.println("At least one alternative exists");
@@ -59,7 +58,6 @@ public class SAW
 
     private void searchProfit()
     {
-        //==Search Profit===
         for(Alternative alternative : this.alternatives)
         {
             this.profit.searchProfits(alternative);
@@ -68,7 +66,6 @@ public class SAW
 
     private void calculate()
     {
-        //===Calculate===
         for(Alternative alternative : this.alternatives)
         {
             alternative.calculateNormalization(this.profit);
@@ -77,7 +74,6 @@ public class SAW
 
     private void ranking()
     {
-        //===Ranking===
         for(Alternative alternative : this.alternatives)
         {
             alternative.calculatePreferences(this.weight);
@@ -86,7 +82,6 @@ public class SAW
 
     private void sort()
     {
-        //===Sort===
         Collections.sort(this.alternatives, new Comparator<Alternative>()
         {
             @Override
