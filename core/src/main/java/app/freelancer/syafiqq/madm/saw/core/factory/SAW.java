@@ -34,7 +34,7 @@ public class SAW
         this.sort();
     }
 
-    private void compile()
+    public void compile()
     {
         if(this.alternatives.size() <= 0)
         {
@@ -56,7 +56,7 @@ public class SAW
         }
     }
 
-    private void searchProfit()
+    public void searchProfit()
     {
         for(Alternative alternative : this.alternatives)
         {
@@ -64,7 +64,7 @@ public class SAW
         }
     }
 
-    private void calculate()
+    public void calculate()
     {
         for(Alternative alternative : this.alternatives)
         {
@@ -72,7 +72,7 @@ public class SAW
         }
     }
 
-    private void ranking()
+    public void ranking()
     {
         for(Alternative alternative : this.alternatives)
         {
@@ -80,7 +80,7 @@ public class SAW
         }
     }
 
-    private void sort()
+    public void sort()
     {
         Collections.sort(this.alternatives, new Comparator<Alternative>()
         {
