@@ -33,7 +33,7 @@ subprojects {
     install {
         repositories.mavenInstaller {
             pom.project {
-           gi     licenses {
+                licenses {
                     license {
                         name 'MIT License'
                         url 'https://raw.githubusercontent.com/Syafiqq/mcdm.saw/master/License'
