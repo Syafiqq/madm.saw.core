@@ -18,5 +18,5 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.commons/commons-math3
     compile group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
 
-    compile group: 'com.github.Syafiqq.mcdm-saw', name:'core', version: '1.0.2'
+    compile group: 'com.github.Syafiqq.mcdm-saw', name:'core', version: '1.0.4'
 }
