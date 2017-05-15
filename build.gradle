@@ -36,7 +36,7 @@ subprojects {
                 licenses {
                     license {
                         name 'MIT License'
-                        url 'https://raw.githubusercontent.com/Syafiqq/mcdm-topsis/master/license'
+                        url 'https://raw.githubusercontent.com/Syafiqq/mcdm-saw/master/license'
                         distribution 'repo'
                     }
                 }
