@@ -1,3 +1,4 @@
 rootProject.name = 'saw'
 include 'core'
+include 'case'
 
